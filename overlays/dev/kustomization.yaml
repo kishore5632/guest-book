@@ -1,19 +1,7 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: guestbook-dev
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: 'https://github.com/kishore5632/guest-book'
-    targetRevision: master
-    path: overlays/dev
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: guestbook-dev
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+namespace: guestbook-dev
 
+resources:
+  - ../../base
+
+patchesStrategicMerge:
+  - deployment-patch.yaml
